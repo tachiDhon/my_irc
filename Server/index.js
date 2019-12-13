@@ -13,9 +13,9 @@ const io = socketio(server);
 io.on('connection', (socket) => {
    console.log('User connected !!');
    
-   socket.on('join', ({ username, room }, callback) => {
-      console.log(username, room);
-   });
+   // socket.on('join', ({ username, message, room }, callback) => {
+   //    console.log(username, message, room);
+   // });
 
    socket.on('disconnect', () => {
       console.log('User disconnected !');

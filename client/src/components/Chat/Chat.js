@@ -1,31 +1,37 @@
 import React from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
+import './Chat.css';
 
 const socket = io('http://localhost:4000');
 
-class Chat extends React.Component {
-   constructor() {
-      super();
+export class Chat extends React.Component {
+   constructor(props) {
+      super(props);
       this.state = {
-         username: '',
-         room: ''
+         username:null,
+         room:null,
+         message:''
       };
-      this.change = this.change.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
       // this.componentDidMount = this.componentDidMount.bind(this);
-      this.send = this.send.bind(this);
+      this.handleSend = this.handleSend.bind(this);
       
    }
 
-   change(e) {
-      console.log(e);
+   handleChange(e) {
       this.setState({
          [e.target.id]: e.target.value
       })
    }
 
-   send() {
-      socket.emit('join', (this.state.username, this.state.room), () => {
+   handleSubmit(event) {
+      event.preventDefault();
+   }
+
+   handleSend() {
+      socket.emit('join', (this.state.username, this.state.message, this.state.room), () => {
          
       });
    }
@@ -40,41 +46,25 @@ class Chat extends React.Component {
       return(
          <div className="Chat">
             <h1>Chat!</h1>
-            <div className="Chat-header" onSubmit={ this.change }>
-               <div>
-
-               </div>
-               <button type="submit" onClick={ () => this.send }>Send</button>
+            <div className="Chat-main">
+               <form className="Form-chat" onSubmit={this.handleSubmit}>
+                  <div className="Form-field">
+                     <textarea 
+                        id="message" 
+                        name="textarea" 
+                        value={this.state.message}
+                        rows={5}
+                        cols={230}
+                        onChange={this.handleChange}>
+                     </textarea>
+                  </div>
+                  <button type="submit" onClick={this.handleSend}>Send</button>
+                  <br />
+               </form>   
             </div>
          </div>
       );
    }
 }
 
-export default Chat;  
-
-// import React, { useState, useEffect } from 'react';
-// const Chat = ({ location }) => {
-//    const [username, setUserName] = useState('');
-//    const [room, setRoom] = useState('');
-//    const ENDPOINT = 'localhost:4000';
-
-//    useEffect(() => {
-//       const { username, room } = queryString.parse(location.search);
-
-//       socket = io(ENDPOINT);
-
-//       setUserName(username);
-//       setRoom(room);
-
-//       socket.emit('join', { username, room }, () => {
-      
-//       });
-
-//    }, [ENDPOINT, location.search]);
-
-//    return (
-//       <h1>Chat</h1>
-//    );
-// }
-
+export default Chat;     

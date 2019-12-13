@@ -1,6 +1,5 @@
 import React from 'react';
 import './Client.css';
-// import '../components/styles/client.css';
 
 export class Client extends React.Component {
   constructor() {
@@ -14,7 +13,6 @@ export class Client extends React.Component {
   }
 
   handleChange(e) {
-    console.log(e);
     this.setState({
       
       [e.target.id]: e.target.value

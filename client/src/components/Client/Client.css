@@ -3,13 +3,13 @@
  }
  
  .App {
-   background-color: #3cce7e;
-   margin: 0 auto;
-   padding-top: 5px; 
+  background-color: #3cce7e;
+  margin: 0 auto;
+  padding-top: 5px; 
  }
  
  h1 {
-   text-align: center;
+  text-align: center;
  }
  
  .App-header {
