@@ -1,10 +1,15 @@
 import React from 'react';
 import './Client.css';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:4000');
 
 export class Client extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
+      socket:null,
       username: '',
       room: ''
     };
@@ -12,15 +17,26 @@ export class Client extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // setUser = (user) =>{
+  //   const { socket } = this.state
+  //   socket.emit('USER_CONNECTED', user);
+  //   this.setState({user})
+  // }
+
   handleChange(e) {
     this.setState({
-      
       [e.target.id]: e.target.value
     })
   }
 
   handleSubmit(e) {
     e.preventDefault();
+
+    // const { socket } = this.props
+    var x = this.state.username
+    var y = this.state.room
+    socket.emit('VERIFY_USER', x, y)
+
     console.log('The form was submitted with the following data');
     console.log(this.state);
 

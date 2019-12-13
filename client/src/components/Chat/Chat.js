@@ -1,5 +1,5 @@
 import React from 'react';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import io from 'socket.io-client';
 import './Chat.css';
 
@@ -16,8 +16,7 @@ export class Chat extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       // this.componentDidMount = this.componentDidMount.bind(this);
-      this.handleSend = this.handleSend.bind(this);
-      
+      // this.handleSend = this.handleSend.bind(this);    
    }
 
    handleChange(e) {
@@ -26,21 +25,18 @@ export class Chat extends React.Component {
       })
    }
 
-   handleSubmit(event) {
-      event.preventDefault();
+   handleSubmit(e) {
+      e.preventDefault();
+
+      var mess = this.state.message;
+      socket.emit('MESSAGE', mess);
    }
 
-   handleSend() {
-      socket.emit('join', (this.state.username, this.state.message, this.state.room), () => {
-         
-      });
-   }
-
-   componentDidMount() {
-      const values = queryString.parse(this.props.location.search)
-      console.log(values.filter);
-      console.log(values.origin);
-   } 
+   // componentDidMount() {
+   //    const values = queryString.parse(this.props.location.search)
+   //    console.log(values.filter);
+   //    console.log(values.origin);
+   // } 
 
    render() {
       return(
@@ -58,7 +54,7 @@ export class Chat extends React.Component {
                         onChange={this.handleChange}>
                      </textarea>
                   </div>
-                  <button type="submit" onClick={this.handleSend}>Send</button>
+                  <button type="submit">Send</button>
                   <br />
                </form>   
             </div>
