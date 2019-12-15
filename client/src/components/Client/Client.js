@@ -9,19 +9,13 @@ export class Client extends React.Component {
     super(props);
 
     this.state = {
-      socket:null,
+      socket: '',
       username: '',
       room: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  // setUser = (user) =>{
-  //   const { socket } = this.state
-  //   socket.emit('USER_CONNECTED', user);
-  //   this.setState({user})
-  // }
 
   handleChange(e) {
     this.setState({
@@ -32,10 +26,10 @@ export class Client extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    // const { socket } = this.props
     var x = this.state.username
     var y = this.state.room
-    socket.emit('VERIFY_USER', x, y)
+    socket.emit('join', x, y)
+    // this.setState({x, y});
 
     console.log('The form was submitted with the following data');
     console.log(this.state);
