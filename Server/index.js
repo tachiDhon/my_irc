@@ -16,6 +16,10 @@ io.on('connection', (socket) => {
    });
 
    socket.on('chat-message', ({ username, message }) => {
+      console.log(username);
+      console.log(message)
+      // if (!isOpen(socket)) return;
+      // socket.send(JSON.stringify(data));
       io.emit("chat message", { username,message });
    });
 

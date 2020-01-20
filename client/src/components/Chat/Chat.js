@@ -29,14 +29,15 @@ export class Chat extends React.Component {
    //    this.setState({ message: "" });
    // }
 
-   handleSubmit = () => {
+   handleSubmit = (e) => {
+      e.preventDefault(); 
       const { username, message } = this.state;
-      socket.emit("chat message", { username, message });
+      socket.emit("chat-message", { username, message });
       this.setState({ message: "" });
    };
 
    componentDidMount() {
-      socket.on('chat-message', ({ username, message }) => {
+      socket.on('chat message', ({ username, message }) => {
          this.setState({
             chat: [...this.state.chat, { username, message }]
          });
